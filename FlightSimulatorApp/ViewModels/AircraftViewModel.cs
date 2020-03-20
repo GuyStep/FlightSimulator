@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FlightSimulatorApp.ViewModels
 
 {
-    class AircraftViewModel : INotifyPropertyChanged
+    public class AircraftViewModel : INotifyPropertyChanged
     {
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,8 +30,8 @@ namespace FlightSimulatorApp.ViewModels
 
         public void NotifyPropertyChanged(string propName)
         {
-            /*if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));*/
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
             Console.WriteLine("In NotifyPropertyChanged DASHBOARDVM @@@@@@@@@@@@@@@@@ " );
 
@@ -54,6 +54,10 @@ namespace FlightSimulatorApp.ViewModels
         public double VM_Attitude_indicator_internal_roll_deg { get { return model.Attitude_indicator_internal_roll_deg; }  }
         public double VM_Attitude_indicator_internal_pitch_deg { get { return model.Attitude_indicator_internal_pitch_deg; }  }
         public double VM_Altimeter_indicated_altitude_ft { get { return model.Altimeter_indicated_altitude_ft; } }
+        public double VM_Altitude { get { return model.Gps_indicated_vertical_speed; } }
+        public double VM_Longtitude { get { return model.Gps_indicated_ground_speed_kt; } }
+
+
     }
 
 

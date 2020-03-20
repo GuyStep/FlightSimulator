@@ -28,10 +28,10 @@ namespace FlightSimulatorApp.View
         bool isPressed = false;
         //public Joystick() { }
 
-        public Joystick(/*Model.AircraftModel model*/)
+        public Joystick(Model.AircraftModel model)
         {
             InitializeComponent();
-            joystickVM = new ViewModels.JoystickViewModel(new Model.AircraftModel(new TcpClient()));
+            joystickVM = new ViewModels.JoystickViewModel(model);
             DataContext = joystickVM;
             //Console.WriteLine(joystickVM.VM_Indicated_heading_deg);
         }

@@ -14,22 +14,23 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Sockets;
 
+
 namespace FlightSimulatorApp.View
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for Map.xaml
     /// </summary>
-    public partial class DashBoard : UserControl { 
+    public partial class Map : UserControl
+    {
+        ViewModels.MapViewModel mapVM;
 
-        ViewModels.DashBoardViewModel dashboardVM;
-
-        public DashBoard(Model.AircraftModel model)
+        public Map(Model.AircraftModel model)
         {
             InitializeComponent();
-            this.dashboardVM = new ViewModels.DashBoardViewModel(model);
-            DataContext = dashboardVM;
-            //Console.WriteLine("View"+dashboardVM.VM_Indicated_heading_deg);
+            this.mapVM = new ViewModels.MapViewModel(model);
+            DataContext = mapVM;
+            Console.WriteLine("View" + mapVM.VM_Altitude);
         }
-    }
 
+    }
 }

@@ -17,11 +17,11 @@ namespace FlightSimulatorApp.ViewModels
         //Ctor
         public DashBoardViewModel(Model.IAircraftModel model)
         {
+            Console.WriteLine("In DASHBOARD CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
                 {
-                    Console.WriteLine("In DASHBOARD CONSTRUCOR ######################################################################################## ");
 
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
@@ -30,10 +30,10 @@ namespace FlightSimulatorApp.ViewModels
 
         public void NotifyPropertyChanged(string propName)
         {
-            /*if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));*/
+            if (this.PropertyChanged != null)
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-            Console.WriteLine("In NotifyPropertyChanged DASHBOARDVM @@@@@@@@@@@@@@@@@ " );
+            //Console.WriteLine("In NotifyPropertyChanged DASHBOARDVM @@@@@@@@@@@@@@@@@ " );
 
 
         }

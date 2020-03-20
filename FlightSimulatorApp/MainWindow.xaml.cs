@@ -27,11 +27,18 @@ namespace FlightSimulatorApp
 
         public MainWindow()
         {
+            InitializeComponent();
+
             model = new Model.AircraftModel(new TcpClient());
-            //vm = new ViewModels.AircraftViewModel(new Model.AircraftModel(new TcpClient()));
-            new View.Joystick(/*model*/);
-            new View.DashBoard(/*model*/);
-            //InitializeComponent();
+            //vm = new ViewModels.AircraftViewModel(model);
+            View.Joystick joys = new View.Joystick(model);
+            View.DashBoard das = new View.DashBoard(model);
+            View.Map mapp = new View.Map(model);
+
+            dashSpace.Children.Add(joys);
+            dashSpace.Children.Add(das);
+            mapSpace.Children.Add(mapp);
+
 
         }
 

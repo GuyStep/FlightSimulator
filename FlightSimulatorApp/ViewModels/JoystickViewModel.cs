@@ -17,10 +17,12 @@ namespace FlightSimulatorApp.ViewModels
         //Ctor
         public JoystickViewModel(Model.IAircraftModel model)
         {
+            Console.WriteLine("In JOYSTICK CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
                 {
+
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
         }

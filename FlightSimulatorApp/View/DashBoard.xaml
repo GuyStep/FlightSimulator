@@ -21,13 +21,13 @@
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,181,0,0" TextWrapping="Wrap" Text="attitude-indicator_internal-pitch-deg" VerticalAlignment="Top" Width="211"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" TextWrapping="Wrap" Text="altimeter_indicated-altitude-ft" VerticalAlignment="Top" Width="211"/>
         <TextBox HorizontalAlignment="Left" Height="23" Margin="243,14,0,0" TextWrapping="Wrap" Text="{Binding VM_Indicated_heading_deg, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,42,0,0" TextWrapping="Wrap" Text="2" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,70,0,0" TextWrapping="Wrap" Text="3" VerticalAlignment="Top" Width="29" RenderTransformOrigin="1.784,3.529"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,97,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,125,0,0" TextWrapping="Wrap" Text="5" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,153,0,0" TextWrapping="Wrap" Text="6" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,181,0,0" TextWrapping="Wrap" Text="7" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,209,0,0" TextWrapping="Wrap" Text="8" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,42,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_vertical_speed, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,70,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_ground_speed_kt, Mode=OneWay}" VerticalAlignment="Top" Width="29" RenderTransformOrigin="1.784,3.529"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,97,0,0" TextWrapping="Wrap" Text="{Binding VM_Airspeed_indicator_indicated_speed_kt, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,125,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_altitude_ft, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,153,0,0" TextWrapping="Wrap" Text="{Binding VM_Attitude_indicator_internal_roll_deg, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,181,0,0" TextWrapping="Wrap" Text="{Binding VM_Attitude_indicator_internal_pitch_deg, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,209,0,0" TextWrapping="Wrap" Text="{Binding VM_Altimeter_indicated_altitude_ft, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
 
 
     </Grid>

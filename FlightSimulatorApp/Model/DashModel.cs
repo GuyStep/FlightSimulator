@@ -9,7 +9,7 @@ using System.Threading;
 
 namespace FlightSimulatorApp.Model
 {
-    public class AircraftModel : IAircraftModel
+    public class DashModel 
     {
         
 
@@ -19,7 +19,7 @@ namespace FlightSimulatorApp.Model
         private NetworkStream stream;
         private BinaryReader reader;
         volatile Boolean stop;
-        public AircraftModel(TcpClient telnetClient)
+        public DashModel(TcpClient telnetClient)
         {
             this.telnetClient = telnetClient;
             this.stop = false;
@@ -35,8 +35,7 @@ namespace FlightSimulatorApp.Model
         private double attitude_indicator_internal_roll_deg;
         private double attitude_indicator_internal_pitch_deg;
         private double altimeter_indicated_altitude_ft;       
-        private double latitude_deg;
-        private double longtitude_deg;
+
 
         public double Indicated_heading_deg { get { return indicated_heading_deg; } set { NotifyPropertyChanged("indicated_heading_deg"); indicated_heading_deg = value;} }
         public double Gps_indicated_vertical_speed { get { return gps_indicated_vertical_speed; } set { gps_indicated_vertical_speed = value; NotifyPropertyChanged("gps_indicated_vertical_speed"); } }
@@ -46,8 +45,6 @@ namespace FlightSimulatorApp.Model
         public double Attitude_indicator_internal_roll_deg { get { return attitude_indicator_internal_roll_deg; } set { attitude_indicator_internal_roll_deg = value; NotifyPropertyChanged("attitude_indicator_internal_roll_deg"); } }
         public double Attitude_indicator_internal_pitch_deg { get { return attitude_indicator_internal_pitch_deg; } set { attitude_indicator_internal_pitch_deg = value; NotifyPropertyChanged("attitude_indicator_internal_pitch_deg"); } }
         public double Altimeter_indicated_altitude_ft { get { return altimeter_indicated_altitude_ft; } set { altimeter_indicated_altitude_ft = value; NotifyPropertyChanged("altimeter_indicated_altitude_ft"); } }
-        public double Latitude_deg { get { return latitude_deg; } set { latitude_deg = value; NotifyPropertyChanged("latitude_deg"); } }
-        public double Longtitude_deg { get { return longtitude_deg; } set { longtitude_deg = value; NotifyPropertyChanged("longtitude_deg"); } }
 
         public void NotifyPropertyChanged(string propName)
         {
@@ -60,7 +57,7 @@ namespace FlightSimulatorApp.Model
         public void connect(string ip, int port)
         {
             this.telnetClient.Connect(ip, port);
-            Console.WriteLine("CONNECTED)?");
+            Console.WriteLine("CONNECTED DASH?");
         }
 
         public void disconnect()
@@ -68,13 +65,7 @@ namespace FlightSimulatorApp.Model
             this.telnetClient.Close();
         }
 
-        public void move(double rudder, double aileron, double throttle, double elevator)
-        {
-            this.write("set /controls/flight/rudder "+rudder+"\n"); //Need full path
-            Console.WriteLine("Sent: "+rudder);
 
-
-        }
 
         public void write(string command)
         {
@@ -86,7 +77,6 @@ namespace FlightSimulatorApp.Model
 
         public string read(TcpClient client)
         {
-            
             reader = new BinaryReader(client.GetStream());
             string input = ""; // input will be stored here
             char s;
@@ -100,56 +90,36 @@ namespace FlightSimulatorApp.Model
             new Thread(delegate ()
             {
                 while (!stop)
-                { /*/instrumentation/heading-indicator/indicated-heading-deg*/
-                    Random rnd = new Random();
-                    this.write("get /controls/flight/rudder\n"); //Need full path
+                { /*/controls/flight/rudder */
+                    this.write("get /instrumentation/heading-indicator/indicated-heading-deg\n"); //Need full path
                     Indicated_heading_deg = Double.Parse(read(telnetClient));
                     Console.WriteLine("Received: " + indicated_heading_deg);
                     Console.WriteLine("Property after UPDATE: " + Indicated_heading_deg);
 
-                    /*                   string[] arr = s.Split(' ');
-                                       string result = arr[2];
-                                       result = result.Replace("\r\n", string.Empty);*/
-                    /*                    double num = Double.Parse(s);
-                                        Indicated_heading_deg = num;*/
+
+                    this.write("get /instrumentation/gps/indicated-vertical-speed\n"); //Need full path
+                    Gps_indicated_vertical_speed = Double.Parse(read(telnetClient));
+
+                    this.write("get /instrumentation/gps/indicated-ground-speed-kt\n"); //Need full path
+                    Gps_indicated_ground_speed_kt = Double.Parse(read(telnetClient));
+
+                    this.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n"); //Need full path
+                    Airspeed_indicator_indicated_speed_kt = Double.Parse(read(telnetClient));
+
+                    this.write("get /instrumentation/gps/indicated-altitude-ft\n"); //Need full path
+                    Gps_indicated_altitude_ft = Double.Parse(read(telnetClient));
+
+                    this.write("get /instrumentation/attitude-indicator/internal-roll-deg\n"); //Need full path
+                    Attitude_indicator_internal_roll_deg = Double.Parse(read(telnetClient));
+
+                    this.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n"); //Need full path
+                    Attitude_indicator_internal_pitch_deg = Double.Parse(read(telnetClient));
+
+                    this.write("get /instrumentation/altimeter/indicated-altitude-ft\n"); //Need full path
+                    Altimeter_indicated_altitude_ft = Double.Parse(read(telnetClient));
 
 
-                    /*Indicated_heading_deg = rnd.NextDouble();*/
 
-                    /*                    Console.WriteLine("Received: " + indicated_heading_deg);
-                                        Console.WriteLine("Property after UPDATE: " + Indicated_heading_deg);*/
-
-
-                    /*this.write("get /instrumentation/gps/indicated-vertical-speed\r\n"); //Need full path
-*//*                    s = read(telnetClient);
-                    arr = s.Split(' ');*//*
-                    Gps_indicated_vertical_speed = rnd.NextDouble();
-
-                    this.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n"); //Need full path
-                    Gps_indicated_ground_speed_kt = rnd.NextDouble();
-
-                    this.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n"); //Need full path
-                    Airspeed_indicator_indicated_speed_kt =  rnd.NextDouble();
-
-                    this.write("get /instrumentation/gps/indicated-altitude-ft\r\n"); //Need full path
-                    Gps_indicated_altitude_ft =  rnd.NextDouble();
-
-                    this.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n"); //Need full path
-                    Attitude_indicator_internal_roll_deg =  rnd.NextDouble();
-
-                    this.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n"); //Need full path
-                    Attitude_indicator_internal_pitch_deg =  rnd.NextDouble();
-
-                    this.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n"); //Need full path
-                    Altimeter_indicated_altitude_ft =  rnd.NextDouble();
-
-
-                    this.write("get /position/latitude-deg");
-                    Latitude_deg =  rnd.NextDouble();
-
-                    this.write("get /position/longitude-deg");
-                    Longtitude_deg =  rnd.NextDouble();
-*/
                     Thread.Sleep(250);
                 }
 
