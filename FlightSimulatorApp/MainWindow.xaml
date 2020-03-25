@@ -7,23 +7,27 @@
         xmlns:View="clr-namespace:FlightSimulatorApp.View"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid Name="dashSpace" HorizontalAlignment="Left" Width="800" Margin="0,10,-6.667,-0.333">
+    <Grid Name="MainGrid"  HorizontalAlignment="Left" Width="800" Margin="0,10,-6.667,-0.333">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="211*"/>
             <ColumnDefinition Width="174*"/>
         </Grid.ColumnDefinitions>
-        <Viewbox Name="joySpace" HorizontalAlignment="Left" Height="188" Margin="163.333,0,0,0" VerticalAlignment="Top" Width="188" Grid.Column="1">
+        <Canvas Name="joySpace" HorizontalAlignment="Left" Height="350" Margin="96.333,10,-101,0" VerticalAlignment="Top" Width="366" Grid.Column="1">
             <!--<View:Joystick Margin="0,55,0,-0.333" Width="411" Loaded="Joystick_Loaded" Height="344"/>-->
+            <Canvas.RenderTransform>
+                <ScaleTransform  ScaleX="0.5" ScaleY="0.5" />
+            </Canvas.RenderTransform>
+        </Canvas>
 
-        </Viewbox>
-
-        <Grid Name="mapSpace" HorizontalAlignment="Left" Height="411" VerticalAlignment="Top" Width="300" Grid.ColumnSpan="2" Margin="304,10,0,-10">
+        <Grid Name="mapSpace" HorizontalAlignment="Left" Height="411" VerticalAlignment="Top" Width="419" Margin="10,0,0,0">
 
 
 
             <!--<View:Map Margin="20,42,0,24"></View:Map>-->
 
         </Grid>
+        <Grid Name="dashSpace" Grid.Column="1" HorizontalAlignment="Left" Height="210" Margin="44.333,201,0,0" VerticalAlignment="Top" Width="307"/>
+        <Button Name="MainButton" Content="Connect" HorizontalAlignment="Left" Margin="131,104,0,0" VerticalAlignment="Top" Width="528" Grid.ColumnSpan="2" Height="176" Click="MainButton_Click"/>
         <!--<View:DashBoard Margin="10,10,139.667,138"/>-->
 
 

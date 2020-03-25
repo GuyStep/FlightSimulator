@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using Microsoft.Maps.MapControl.WPF;
+
 
 
 namespace FlightSimulatorApp.Model
@@ -24,8 +26,12 @@ namespace FlightSimulatorApp.Model
         double Attitude_indicator_internal_roll_deg { set; get; } //attitude-indicator_internal-roll-deg
         double Attitude_indicator_internal_pitch_deg { set; get; } //attitude-indicator_internal-pitch-deg
         double Altimeter_indicated_altitude_ft { set; get; } //altimeter_indicated-altitude-ft
+        double Latitude_deg { get; set;  }
+        double Longtitude_deg { get; set; }
+        Location myLoc { get; set; }
+
 
         //Control the aircraft by sending control commands
-        void move(double rudder, double aileron, double throttle, double elevator);
+        void move(double rudder, double elevator , double throttle, double aileron);
     }
 }

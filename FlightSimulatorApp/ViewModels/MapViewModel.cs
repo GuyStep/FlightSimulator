@@ -4,6 +4,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Maps.MapControl.WPF;
+
 
 namespace FlightSimulatorApp.ViewModels
 
@@ -16,7 +18,7 @@ namespace FlightSimulatorApp.ViewModels
         //Ctor
         public MapViewModel(Model.IAircraftModel model)
         {
-            Console.WriteLine("In MAP CONSTRUCOR ######################################################################################## ");
+            //Console.WriteLine("In MAP CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
@@ -40,9 +42,12 @@ namespace FlightSimulatorApp.ViewModels
 
         //VM aircraft location positions received from model (simulator)
 
-         
-        public double VM_Altitude { get { return model.Gps_indicated_vertical_speed; }  }
-        public double VM_Longtitude { get { return model.Gps_indicated_ground_speed_kt; } }
+        public double VM_Latitude { get { return model.Latitude_deg; }  }
+        public double VM_Longtitude { get {  return model.Longtitude_deg; } }
+        public Location VM_myLoc { get
+            {
+                Console.WriteLine("View" + VM_Latitude);
+                return model.myLoc ; } }
 
     }
 

@@ -12,22 +12,22 @@
             <ColumnDefinition/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,15,0,0" TextWrapping="Wrap" Text="indicated-heading-deg" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,43,0,0" TextWrapping="Wrap" Text="gps_indicated-vertical-speed" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,71,0,0" TextWrapping="Wrap" Text="gps_indicated-ground-speed-kt" VerticalAlignment="Top" Width="211" RenderTransformOrigin="1.784,3.529"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,97,0,0" TextWrapping="Wrap" Text="airspeed-indicator_indicated-speed-kt" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,125,0,0" TextWrapping="Wrap" Text="gps_indicated-altitude-ft" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,153,0,0" TextWrapping="Wrap" Text="attitude-indicator_internal-roll-deg" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,181,0,0" TextWrapping="Wrap" Text="attitude-indicator_internal-pitch-deg" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="10,209,0,0" TextWrapping="Wrap" Text="altimeter_indicated-altitude-ft" VerticalAlignment="Top" Width="211"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,14,0,0" TextWrapping="Wrap" Text="{Binding VM_Indicated_heading_deg, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,42,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_vertical_speed, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,70,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_ground_speed_kt, Mode=OneWay}" VerticalAlignment="Top" Width="29" RenderTransformOrigin="1.784,3.529"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,97,0,0" TextWrapping="Wrap" Text="{Binding VM_Airspeed_indicator_indicated_speed_kt, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,125,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_altitude_ft, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,153,0,0" TextWrapping="Wrap" Text="{Binding VM_Attitude_indicator_internal_roll_deg, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,181,0,0" TextWrapping="Wrap" Text="{Binding VM_Attitude_indicator_internal_pitch_deg, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="243,209,0,0" TextWrapping="Wrap" Text="{Binding VM_Altimeter_indicated_altitude_ft, Mode=OneWay}" VerticalAlignment="Top" Width="29"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,3,0,0" TextWrapping="Wrap" Text="indicated-heading-deg" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,27,0,0" TextWrapping="Wrap" Text="gps_indicated-vertical-speed" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,50,0,0" TextWrapping="Wrap" Text="gps_indicated-ground-speed-kt" VerticalAlignment="Top" Width="211" RenderTransformOrigin="1.784,3.529"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,73,0,0" TextWrapping="Wrap" Text="airspeed-indicator_indicated-speed-kt" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,97,0,0" TextWrapping="Wrap" Text="gps_indicated-altitude-ft" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,121,0,0" TextWrapping="Wrap" Text="attitude-indicator_internal-roll-deg" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,145,0,0" TextWrapping="Wrap" Text="attitude-indicator_internal-pitch-deg" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="5,169,0,0" TextWrapping="Wrap" Text="altimeter_indicated-altitude-ft" VerticalAlignment="Top" Width="211"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,3,0,0" TextWrapping="Wrap" Text="{Binding VM_Indicated_heading_deg, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,26,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_vertical_speed, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,49,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_ground_speed_kt, Mode=OneWay}" VerticalAlignment="Top" Width="60" RenderTransformOrigin="1.784,3.529"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,73,0,0" TextWrapping="Wrap" Text="{Binding VM_Airspeed_indicator_indicated_speed_kt, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,97,0,0" TextWrapping="Wrap" Text="{Binding VM_Gps_indicated_altitude_ft, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,121,0,0" TextWrapping="Wrap" Text="{Binding VM_Attitude_indicator_internal_roll_deg, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,145,0,0" TextWrapping="Wrap" Text="{Binding VM_Attitude_indicator_internal_pitch_deg, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="238,169,0,0" TextWrapping="Wrap" Text="{Binding VM_Altimeter_indicated_altitude_ft, Mode=OneWay}" VerticalAlignment="Top" Width="60"/>
 
 
     </Grid>

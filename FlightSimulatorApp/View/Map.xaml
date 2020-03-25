@@ -7,8 +7,16 @@
              xmlns:local="clr-namespace:FlightSimulatorApp.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <m:Map Mode="Road" ZoomLevel="3" Center="-23.1870304,-50.6606103" Margin="-14,-45,10.002,0" Grid.RowSpan="2" Grid.ColumnSpan="6"/>
+    <Grid RenderTransformOrigin="0.468,0.521">
+        <m:Map CredentialsProvider="Aq4ylgDNe6nOKevy-2lj8mz__bUh3NJvOOSFNlUl0QM4gPWrbuCBVTtCB0WMcdZQ" Name="myMap" Mode="Road" ZoomLevel="10
+               " Center="32.06049999999987, 34.94039999999987" Margin="10,0,0,0">
+            <m:Pushpin Location ="{Binding VM_myLoc}">
+                <Image Source="/Plane.gif"/>
+            </m:Pushpin>
+        </m:Map>
+
+        <!--<m:Pushpin Location="32.06049999999987, 34.94039999999987"/>-->
+
 
     </Grid>
 </UserControl>

@@ -40,7 +40,7 @@ namespace FlightSimulatorApp.ViewModels
 
 
         //VM properties received from model (simulator)
-        public double VM_Indicated_heading_deg { get {Console.WriteLine("DASHBOARDVM FROM MODEL:"+ model.Indicated_heading_deg); return model.Indicated_heading_deg; 
+        public double VM_Indicated_heading_deg { get {/*Console.WriteLine("DASHBOARDVM FROM MODEL:"+ model.Indicated_heading_deg);*/ return model.Indicated_heading_deg; 
             }
         } 
         public double VM_Gps_indicated_vertical_speed { get { return model.Gps_indicated_vertical_speed; }  }

@@ -27,6 +27,7 @@ namespace FlightSimulatorApp.View
         private Point MouseDownLocation;
         bool isPressed = false;
         //public Joystick() { }
+        private double aileron, throttle;
 
         public Joystick(Model.AircraftModel model)
         {
@@ -61,7 +62,9 @@ namespace FlightSimulatorApp.View
                 {
                     knobPosition.X = x;
                     knobPosition.Y = y;
-                    joystickVM.moveAircraft(1, 1, 1, 1); //Change the first two properties according to the joystock movement
+                    double relativeX = knobPosition.X / InnerCircle.Width * 2;   //Rudder 
+                    double relativeY = knobPosition.Y / InnerCircle.Width * 2;   //Aileron 
+                    joystickVM.moveAircraft(relativeX, relativeY, throttle, aileron); //Change the first two properties according to the joystock movement
 
                 }
 
@@ -74,11 +77,14 @@ namespace FlightSimulatorApp.View
             isPressed = false;
             knobPosition.X = 0;
             knobPosition.Y = 0;
-            joystickVM.moveAircraft(0, 0, 1, 1); //Change the last two properties according to the bars
+            joystickVM.moveAircraft(0, 0, throttle, aileron); //Change the last two properties according to the bars
             if (e.Source is Shape shape)
                 shape.ReleaseMouseCapture();
         }
 
+        private void throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
 
+        }
     }
 }

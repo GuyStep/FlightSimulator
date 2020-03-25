@@ -24,21 +24,44 @@ namespace FlightSimulatorApp
     {
         ViewModels.AircraftViewModel vm;
         Model.AircraftModel model;
-
+        Button mainButton = new Button();
         public MainWindow()
         {
             InitializeComponent();
+   /*         
+            mainButton.Content = "Connect";
+            mainButton.Height = 170;
+            mainButton.Width = 500;
+            MainGrid.Children.Add(mainButton);*/
 
-            model = new Model.AircraftModel(new TcpClient());
+
+            // < Button Name = "MainButton" Content = "Connect" HorizontalAlignment = "Left" Margin = "131,104,0,0" VerticalAlignment = "Top" Width = "528" Grid.ColumnSpan = "2" Height = "176" />
+
+            //           
+
+
+
+        }
+        private void MainButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            View.ConnectWindow win = new View.ConnectWindow();
+            win.Show();
+            win.setWin(this);
+        }
+
+        public void startFlying(string ip, int port)
+        {
+            MainGrid.Children.Remove(MainButton); 
+            model = new Model.AircraftModel(new TcpClient(), ip, port);
             //vm = new ViewModels.AircraftViewModel(model);
             View.Joystick joys = new View.Joystick(model);
             View.DashBoard das = new View.DashBoard(model);
             View.Map mapp = new View.Map(model);
 
-            dashSpace.Children.Add(joys);
+            joySpace.Children.Add(joys);
             dashSpace.Children.Add(das);
             mapSpace.Children.Add(mapp);
-
 
         }
 

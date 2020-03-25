@@ -6,12 +6,15 @@ using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using Microsoft.Maps.MapControl.WPF;
+
 
 namespace FlightSimulatorApp.Model
 {
     public class AircraftModel : IAircraftModel
     {
-        
+
+        private static Mutex mut = new Mutex();
 
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -19,11 +22,11 @@ namespace FlightSimulatorApp.Model
         private NetworkStream stream;
         private BinaryReader reader;
         volatile Boolean stop;
-        public AircraftModel(TcpClient telnetClient)
+        public AircraftModel(TcpClient telnetClient, string ip, int port)
         {
             this.telnetClient = telnetClient;
             this.stop = false;
-            this.connect("127.0.0.1", 5402);
+            this.connect(ip, port);
             this.start();
         }
 
@@ -36,7 +39,10 @@ namespace FlightSimulatorApp.Model
         private double attitude_indicator_internal_pitch_deg;
         private double altimeter_indicated_altitude_ft;       
         private double latitude_deg;
-        private double longtitude_deg;
+        private double longtitude_deg;        
+        private double throttle;
+        private double aileron;
+        private Location loc;
 
         public double Indicated_heading_deg { get { return indicated_heading_deg; } set { NotifyPropertyChanged("indicated_heading_deg"); indicated_heading_deg = value;} }
         public double Gps_indicated_vertical_speed { get { return gps_indicated_vertical_speed; } set { gps_indicated_vertical_speed = value; NotifyPropertyChanged("gps_indicated_vertical_speed"); } }
@@ -48,6 +54,9 @@ namespace FlightSimulatorApp.Model
         public double Altimeter_indicated_altitude_ft { get { return altimeter_indicated_altitude_ft; } set { altimeter_indicated_altitude_ft = value; NotifyPropertyChanged("altimeter_indicated_altitude_ft"); } }
         public double Latitude_deg { get { return latitude_deg; } set { latitude_deg = value; NotifyPropertyChanged("latitude_deg"); } }
         public double Longtitude_deg { get { return longtitude_deg; } set { longtitude_deg = value; NotifyPropertyChanged("longtitude_deg"); } }
+        public Location myLoc { get { return loc ; } set { loc = value; NotifyPropertyChanged("myLoc"); } }
+        public double Throttle { get { return throttle; } set { throttle = value; NotifyPropertyChanged("throttle"); } }
+        public double Aileron { get { return aileron; } set { aileron = value; NotifyPropertyChanged("aileron"); } }
 
         public void NotifyPropertyChanged(string propName)
         {
@@ -68,10 +77,21 @@ namespace FlightSimulatorApp.Model
             this.telnetClient.Close();
         }
 
-        public void move(double rudder, double aileron, double throttle, double elevator)
+        public void move(double rudder, double elevator, double throttle, double aileron)
         {
-            this.write("set /controls/flight/rudder "+rudder+"\n"); //Need full path
-            Console.WriteLine("Sent: "+rudder);
+            mut.WaitOne();
+            this.write("set /controls/flight/rudder "+rudder+"\n");
+            Double.Parse(read(telnetClient));
+            this.write("set /controls/flight/elevator "+ elevator + "\n"); 
+            Double.Parse(read(telnetClient));
+            this.write("set /controls/flight/aileron " + aileron + "\n");
+            Double.Parse(read(telnetClient));
+            this.write("set /controls/engines/current-engine/throttle " + throttle + "\n"); 
+            Double.Parse(read(telnetClient));
+
+            //Console.WriteLine("Sent: "+rudder);
+            //Console.WriteLine("Received after set: "+);
+            mut.ReleaseMutex();
 
 
         }
@@ -96,20 +116,23 @@ namespace FlightSimulatorApp.Model
 
         public void start()
         {
-
+            string input;
+            double offset = 0.001;
             new Thread(delegate ()
             {
                 while (!stop)
                 { /*/instrumentation/heading-indicator/indicated-heading-deg*/
                     Random rnd = new Random();
+                    mut.WaitOne();
+
                     this.write("get /controls/flight/rudder\n"); //Need full path
                     Indicated_heading_deg = Double.Parse(read(telnetClient));
-                    Console.WriteLine("Received: " + indicated_heading_deg);
-                    Console.WriteLine("Property after UPDATE: " + Indicated_heading_deg);
+                    //Console.WriteLine("Received: " + indicated_heading_deg);
+                    //Console.WriteLine("Property after UPDATE: " + Indicated_heading_deg);
 
                     /*                   string[] arr = s.Split(' ');
                                        string result = arr[2];
-                                       result = result.Replace("\r\n", string.Empty);*/
+                                       result = result.Replace("\n", string.Empty);*/
                     /*                    double num = Double.Parse(s);
                                         Indicated_heading_deg = num;*/
 
@@ -120,37 +143,50 @@ namespace FlightSimulatorApp.Model
                                         Console.WriteLine("Property after UPDATE: " + Indicated_heading_deg);*/
 
 
-                    /*this.write("get /instrumentation/gps/indicated-vertical-speed\r\n"); //Need full path
-*//*                    s = read(telnetClient);
-                    arr = s.Split(' ');*//*
-                    Gps_indicated_vertical_speed = rnd.NextDouble();
+                    this.write("get /instrumentation/gps/indicated-vertical-speed\n");
+                    input = read(telnetClient);
+                    Gps_indicated_vertical_speed = Double.Parse(input); ;
 
-                    this.write("get /instrumentation/gps/indicated-ground-speed-kt\r\n"); //Need full path
-                    Gps_indicated_ground_speed_kt = rnd.NextDouble();
+                    this.write("get /instrumentation/gps/indicated-ground-speed-kt\n");
+                    input = read(telnetClient);
+                    Gps_indicated_ground_speed_kt = Double.Parse(input);
 
-                    this.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\r\n"); //Need full path
-                    Airspeed_indicator_indicated_speed_kt =  rnd.NextDouble();
+                    this.write("get /instrumentation/airspeed-indicator/indicated-speed-kt\n");
+                    input = read(telnetClient);
+                    Airspeed_indicator_indicated_speed_kt = Double.Parse(input);
 
-                    this.write("get /instrumentation/gps/indicated-altitude-ft\r\n"); //Need full path
-                    Gps_indicated_altitude_ft =  rnd.NextDouble();
+                    this.write("get /instrumentation/gps/indicated-altitude-ft\n");
+                    input = read(telnetClient);
+                    Gps_indicated_altitude_ft = Double.Parse(input);
 
-                    this.write("get /instrumentation/attitude-indicator/internal-roll-deg\r\n"); //Need full path
-                    Attitude_indicator_internal_roll_deg =  rnd.NextDouble();
+                    this.write("get /instrumentation/attitude-indicator/internal-roll-deg\n");
+                    input = read(telnetClient);
+                    Attitude_indicator_internal_roll_deg = Double.Parse(input);
 
-                    this.write("get /instrumentation/attitude-indicator/internal-pitch-deg\r\n"); //Need full path
-                    Attitude_indicator_internal_pitch_deg =  rnd.NextDouble();
+                    this.write("get /instrumentation/attitude-indicator/internal-pitch-deg\n");
+                    input = read(telnetClient);
+                    Attitude_indicator_internal_pitch_deg = Double.Parse(input);
 
-                    this.write("get /instrumentation/altimeter/indicated-altitude-ft\r\n"); //Need full path
-                    Altimeter_indicated_altitude_ft =  rnd.NextDouble();
+                    this.write("get /instrumentation/altimeter/indicated-altitude-ft\n");
+                    input = read(telnetClient);
+                    Altimeter_indicated_altitude_ft = Double.Parse(input);
 
 
-                    this.write("get /position/latitude-deg");
-                    Latitude_deg =  rnd.NextDouble();
+                    this.write("get /position/latitude-deg\n");
+                    input = read(telnetClient);
+                    Latitude_deg = Double.Parse(input) + offset;
 
-                    this.write("get /position/longitude-deg");
-                    Longtitude_deg =  rnd.NextDouble();
-*/
+                    this.write("get /position/longitude-deg\n");
+                    input = read(telnetClient);
+                    Longtitude_deg = Double.Parse(input) + offset;
+                    offset = offset + 0.0001;
+                    myLoc = new Location(Latitude_deg, Longtitude_deg);
+                    
+                    
+                    mut.ReleaseMutex();
                     Thread.Sleep(250);
+
+
                 }
 
             }).Start();

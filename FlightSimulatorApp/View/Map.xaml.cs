@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Sockets;
+using Microsoft.Maps.MapControl.WPF;
 
 
 namespace FlightSimulatorApp.View
@@ -29,7 +30,12 @@ namespace FlightSimulatorApp.View
             InitializeComponent();
             this.mapVM = new ViewModels.MapViewModel(model);
             DataContext = mapVM;
-            Console.WriteLine("View" + mapVM.VM_Altitude);
+            //Location loc = new Location(mapVM.VM_Latitude, mapVM.VM_Longtitude);
+
+           
+
+
+
         }
 
     }

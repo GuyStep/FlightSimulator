@@ -13,6 +13,9 @@ namespace FlightSimulatorApp.ViewModels
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
         private double rudder, aileron, throttle, elevator;
+        public double VM_Throttle { get { return throttle; ; } set { throttle = value; model.move(rudder, elevator, throttle, aileron); } }
+        public double VM_Aileron { get { return aileron; } set { aileron = value; model.move(rudder, elevator, throttle, aileron); } }
+
 
         //Ctor
         public JoystickViewModel(Model.IAircraftModel model)
@@ -35,9 +38,9 @@ namespace FlightSimulatorApp.ViewModels
 
         }
 
-        public void moveAircraft(double rudder, double aileron, double throttle, double elevator)
+        public void moveAircraft(double rudder, double elevator, double throttle, double aileron)
         {
-            model.move(rudder, aileron, throttle, elevator);
+            model.move(rudder, elevator, this.throttle, this.aileron);
         }
         /*//VM properties received from view (joystick)
         public double VM_rudder { get { return rudder; } set{ rudder = value; model.move(rudder, aileron, throttle, elevator); } }
