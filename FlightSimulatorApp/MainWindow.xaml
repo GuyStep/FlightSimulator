@@ -19,7 +19,7 @@
             </Canvas.RenderTransform>
         </Canvas>
 
-        <Grid Name="mapSpace" HorizontalAlignment="Left" Height="411" VerticalAlignment="Top" Width="419" Margin="10,0,0,0">
+        <Grid Name="mapSpace" HorizontalAlignment="Left" Height="367" VerticalAlignment="Top" Width="419" Margin="10,44,0,0">
 
 
 
@@ -28,6 +28,10 @@
         </Grid>
         <Grid Name="dashSpace" Grid.Column="1" HorizontalAlignment="Left" Height="210" Margin="44.333,201,0,0" VerticalAlignment="Top" Width="307"/>
         <Button Name="MainButton" Content="Connect" HorizontalAlignment="Left" Margin="131,104,0,0" VerticalAlignment="Top" Width="528" Grid.ColumnSpan="2" Height="176" Click="MainButton_Click"/>
+        <Label Content="Errors:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="26" Width="55"/>
+        <Label Content="{Binding VM_Error,  Mode=OneWay}" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Top" Width="296">
+
+        </Label>
         <!--<View:DashBoard Margin="10,10,139.667,138"/>-->
 
 

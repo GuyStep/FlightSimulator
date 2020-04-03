@@ -21,10 +21,11 @@ namespace FlightSimulatorApp.Model
         TcpClient telnetClient; //Need to change to TcpClient
         private NetworkStream stream;
         private BinaryReader reader;
-        volatile Boolean stop;
+        public Boolean stop;
         public AircraftModel(TcpClient telnetClient, string ip, int port)
         {
             this.telnetClient = telnetClient;
+            telnetClient.SendTimeout = 10000;
             this.stop = false;
             this.connect(ip, port);
             this.start();
@@ -42,6 +43,7 @@ namespace FlightSimulatorApp.Model
         private double longtitude_deg;
         private double throttle;
         private double aileron;
+        private string error = "None";
         private Location loc;
 
         public double Indicated_heading_deg { get { return indicated_heading_deg; } set { NotifyPropertyChanged("indicated_heading_deg"); indicated_heading_deg = value; } }
@@ -57,6 +59,7 @@ namespace FlightSimulatorApp.Model
         public Location myLoc { get { return loc; } set { loc = value; NotifyPropertyChanged("myLoc"); } }
         public double Throttle { get { return throttle; } set { throttle = value; NotifyPropertyChanged("throttle"); } }
         public double Aileron { get { return aileron; } set { aileron = value; NotifyPropertyChanged("aileron"); } }
+        public string Error { get { return error; } set { error = value; NotifyPropertyChanged("error"); } }
 
         public void NotifyPropertyChanged(string propName)
         {
@@ -68,7 +71,16 @@ namespace FlightSimulatorApp.Model
 
         public void connect(string ip, int port)
         {
-            this.telnetClient.Connect(ip, port);
+            try
+            {
+                this.telnetClient.Connect(ip, port);
+            }
+            catch
+            {
+                Error = "Could not connect to server";
+                this.stop = true;
+
+            }
             Console.WriteLine("CONNECTED)?");
         }
 
@@ -98,20 +110,42 @@ namespace FlightSimulatorApp.Model
 
         public void write(string command)
         {
-            stream = telnetClient.GetStream();
-            byte[] send = Encoding.ASCII.GetBytes(command.ToString());
-            stream.Write(send, 0, send.Length);
+            try { stream = telnetClient.GetStream();
+                byte[] send = Encoding.ASCII.GetBytes(command.ToString());
+                stream.Write(send, 0, send.Length);
+            }
+            catch
+            {
+                Error = "Couldn't write to server.";
+            }
+
+
 
         }
 
         public string read(TcpClient client)
         {
 
-            reader = new BinaryReader(client.GetStream());
-            string input = ""; // input will be stored here
-            char s;
-            while ((s = reader.ReadChar()) != '\n') input += s;
-            return input;
+                string input = ""; // input will be stored here
+            try { 
+                reader = new BinaryReader(client.GetStream());
+                char s;
+                while ((s = reader.ReadChar()) != '\n') input += s;
+            }
+            catch {
+                Error = "Couldn't recieve from server.";
+                return "0";
+            }
+
+            try { Double.Parse(input);
+                return input;
+            }
+            catch
+            {
+                Error = "Wrong value returned from server";
+                return "0";
+            }
+
         }
 
         public void start()
@@ -171,15 +205,37 @@ namespace FlightSimulatorApp.Model
                     input = read(telnetClient);
                     Altimeter_indicated_altitude_ft = Double.Parse(input);
 
-
+                    double tempLat, tempLon;
                     this.write("get /position/latitude-deg\n");
                     input = read(telnetClient);
-                    Latitude_deg = Double.Parse(input) + offset;
+                    tempLat = Double.Parse(input) + offset; //Latitude_deg
 
                     this.write("get /position/longitude-deg\n");
                     input = read(telnetClient);
-                    Longtitude_deg = Double.Parse(input) + offset;
+                    tempLon = Double.Parse(input) + offset; //Longtitude_deg
                     offset = offset + 0.0001;
+                    if (tempLon > 180)                   
+                    {
+                        Error = "Longtitude degree above 180";
+                        Latitude_deg = 180;
+                    }
+                    if ( tempLon < -180)
+                    {
+                        Error = "Longtitude degree below -180";
+                        Latitude_deg = -180;
+                    }
+                    if (tempLat > 90)
+                    {
+                        Error = "Latitude degree above 90";
+                        Longtitude_deg = 90;
+                    }
+                    if ( tempLat < -90)
+                    {
+                        Error = "Latitude degree below -90";
+                        Longtitude_deg = -90;
+                    }
+
+
                     myLoc = new Location(Latitude_deg, Longtitude_deg);
 
 

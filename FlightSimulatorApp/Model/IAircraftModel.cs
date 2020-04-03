@@ -29,6 +29,7 @@ namespace FlightSimulatorApp.Model
         double Latitude_deg { get; set;  }
         double Longtitude_deg { get; set; }
         Location myLoc { get; set; }
+        string Error { get; set; }
 
 
         //Control the aircraft by sending control commands

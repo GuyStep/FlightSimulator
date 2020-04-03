@@ -20,9 +20,14 @@ namespace FlightSimulatorApp.View
     public partial class ConnectWindow : Window
     {
         MainWindow win;
+        string error = "";
+        public string Error { get { return error; } set { error = value; }  }
+
         public ConnectWindow()
         {
             InitializeComponent();
+            DataContext = this;
+
         }
 
         public void setWin(MainWindow win)
@@ -31,16 +36,27 @@ namespace FlightSimulatorApp.View
         }
         private void conButton_Click(object sender, RoutedEventArgs e)
         {
+            Label errorLabel = new Label();
+            errorLabel.Margin = new System.Windows.Thickness(41, 34, 0, 0);
+            errorLabel.Height = 26;
+            griddd.Children.Add(errorLabel);
+
+           // errorLabel.
+
+
 
             try
             {
                 win.startFlying(ipText.Text, Int32.Parse(portText.Text));
-            }
+                this.Close();
+
+             }
             catch
-            {
-                win.startFlying("127.0.0.1", 5402);
+             {
+                errorLabel.Content = "Bad ip or port, try again";
+
             }
-            this.Close();
+
         }
 
     }

@@ -50,6 +50,7 @@ namespace FlightSimulatorApp.ViewModels
         public double VM_Attitude_indicator_internal_roll_deg { get { return model.Attitude_indicator_internal_roll_deg; }  }
         public double VM_Attitude_indicator_internal_pitch_deg { get { return model.Attitude_indicator_internal_pitch_deg; }  }
         public double VM_Altimeter_indicated_altitude_ft { get { return model.Altimeter_indicated_altitude_ft; } }
+        public string VM_Error { get { return model.Error; } }
     }
 
 
