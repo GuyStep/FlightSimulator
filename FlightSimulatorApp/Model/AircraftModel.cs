@@ -37,16 +37,16 @@ namespace FlightSimulatorApp.Model
         private double gps_indicated_altitude_ft;
         private double attitude_indicator_internal_roll_deg;
         private double attitude_indicator_internal_pitch_deg;
-        private double altimeter_indicated_altitude_ft;       
+        private double altimeter_indicated_altitude_ft;
         private double latitude_deg;
-        private double longtitude_deg;        
+        private double longtitude_deg;
         private double throttle;
         private double aileron;
         private Location loc;
 
-        public double Indicated_heading_deg { get { return indicated_heading_deg; } set { NotifyPropertyChanged("indicated_heading_deg"); indicated_heading_deg = value;} }
+        public double Indicated_heading_deg { get { return indicated_heading_deg; } set { NotifyPropertyChanged("indicated_heading_deg"); indicated_heading_deg = value; } }
         public double Gps_indicated_vertical_speed { get { return gps_indicated_vertical_speed; } set { gps_indicated_vertical_speed = value; NotifyPropertyChanged("gps_indicated_vertical_speed"); } }
-        public double Gps_indicated_ground_speed_kt { get { return gps_indicated_ground_speed_kt; } set{ gps_indicated_ground_speed_kt = value; NotifyPropertyChanged("gps_indicated_ground_speed_kt"); } }
+        public double Gps_indicated_ground_speed_kt { get { return gps_indicated_ground_speed_kt; } set { gps_indicated_ground_speed_kt = value; NotifyPropertyChanged("gps_indicated_ground_speed_kt"); } }
         public double Airspeed_indicator_indicated_speed_kt { get { return airspeed_indicator_indicated_speed_kt; } set { airspeed_indicator_indicated_speed_kt = value; NotifyPropertyChanged("airspeed_indicator_indicated_speed_kt"); } }
         public double Gps_indicated_altitude_ft { get { return gps_indicated_altitude_ft; } set { gps_indicated_altitude_ft = value; NotifyPropertyChanged("gps_indicated_altitude_ft"); } }
         public double Attitude_indicator_internal_roll_deg { get { return attitude_indicator_internal_roll_deg; } set { attitude_indicator_internal_roll_deg = value; NotifyPropertyChanged("attitude_indicator_internal_roll_deg"); } }
@@ -54,7 +54,7 @@ namespace FlightSimulatorApp.Model
         public double Altimeter_indicated_altitude_ft { get { return altimeter_indicated_altitude_ft; } set { altimeter_indicated_altitude_ft = value; NotifyPropertyChanged("altimeter_indicated_altitude_ft"); } }
         public double Latitude_deg { get { return latitude_deg; } set { latitude_deg = value; NotifyPropertyChanged("latitude_deg"); } }
         public double Longtitude_deg { get { return longtitude_deg; } set { longtitude_deg = value; NotifyPropertyChanged("longtitude_deg"); } }
-        public Location myLoc { get { return loc ; } set { loc = value; NotifyPropertyChanged("myLoc"); } }
+        public Location myLoc { get { return loc; } set { loc = value; NotifyPropertyChanged("myLoc"); } }
         public double Throttle { get { return throttle; } set { throttle = value; NotifyPropertyChanged("throttle"); } }
         public double Aileron { get { return aileron; } set { aileron = value; NotifyPropertyChanged("aileron"); } }
 
@@ -80,13 +80,13 @@ namespace FlightSimulatorApp.Model
         public void move(double rudder, double elevator, double throttle, double aileron)
         {
             mut.WaitOne();
-            this.write("set /controls/flight/rudder "+rudder+"\n");
+            this.write("set /controls/flight/rudder " + rudder + "\n");
             Double.Parse(read(telnetClient));
-            this.write("set /controls/flight/elevator "+ elevator + "\n"); 
+            this.write("set /controls/flight/elevator " + elevator + "\n");
             Double.Parse(read(telnetClient));
             this.write("set /controls/flight/aileron " + aileron + "\n");
             Double.Parse(read(telnetClient));
-            this.write("set /controls/engines/current-engine/throttle " + throttle + "\n"); 
+            this.write("set /controls/engines/current-engine/throttle " + throttle + "\n");
             Double.Parse(read(telnetClient));
 
             //Console.WriteLine("Sent: "+rudder);
@@ -106,7 +106,7 @@ namespace FlightSimulatorApp.Model
 
         public string read(TcpClient client)
         {
-            
+
             reader = new BinaryReader(client.GetStream());
             string input = ""; // input will be stored here
             char s;
@@ -181,8 +181,8 @@ namespace FlightSimulatorApp.Model
                     Longtitude_deg = Double.Parse(input) + offset;
                     offset = offset + 0.0001;
                     myLoc = new Location(Latitude_deg, Longtitude_deg);
-                    
-                    
+
+
                     mut.ReleaseMutex();
                     Thread.Sleep(250);
 
@@ -193,4 +193,3 @@ namespace FlightSimulatorApp.Model
         }
     }
 }
-

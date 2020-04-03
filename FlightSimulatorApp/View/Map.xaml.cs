@@ -25,10 +25,10 @@ namespace FlightSimulatorApp.View
     {
         ViewModels.MapViewModel mapVM;
 
-        public Map(Model.AircraftModel model)
+        public Map(Model.AircraftModel model, ViewModels.MapViewModel mapVM)
         {
             InitializeComponent();
-            this.mapVM = new ViewModels.MapViewModel(model);
+            this.mapVM = mapVM;
             DataContext = mapVM;
             //Location loc = new Location(mapVM.VM_Latitude, mapVM.VM_Longtitude);
 

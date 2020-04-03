@@ -23,10 +23,10 @@ namespace FlightSimulatorApp.View
 
         ViewModels.DashBoardViewModel dashboardVM;
 
-        public DashBoard(Model.AircraftModel model)
+        public DashBoard(Model.AircraftModel model, ViewModels.DashBoardViewModel dashboardVM)
         {
             InitializeComponent();
-            this.dashboardVM = new ViewModels.DashBoardViewModel(model);
+            this.dashboardVM = dashboardVM;
             DataContext = dashboardVM;
             //Console.WriteLine("View"+dashboardVM.VM_Indicated_heading_deg);
         }

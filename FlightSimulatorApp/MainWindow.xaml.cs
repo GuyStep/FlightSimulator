@@ -55,11 +55,16 @@ namespace FlightSimulatorApp
             MainGrid.Children.Remove(MainButton); 
             model = new Model.AircraftModel(new TcpClient(), ip, port);
             //vm = new ViewModels.AircraftViewModel(model);
-            View.Joystick joys = new View.Joystick(model);
-            View.DashBoard das = new View.DashBoard(model);
-            View.Map mapp = new View.Map(model);
+            ViewModels.JoystickViewModel VMjoystick = new ViewModels.JoystickViewModel(model);
+            ViewModels.MapViewModel VMmap = new ViewModels.MapViewModel(model);
+            ViewModels.DashBoardViewModel VMdashboard = new ViewModels.DashBoardViewModel(model);
+            
+            //View.Joystick joys = new View.Joystick(model);
+            View.Sliders slide = new View.Sliders(model, VMjoystick);
+            View.DashBoard das = new View.DashBoard(model, VMdashboard);
+            View.Map mapp = new View.Map(model, VMmap);
 
-            joySpace.Children.Add(joys);
+            joySpace.Children.Add(slide);
             dashSpace.Children.Add(das);
             mapSpace.Children.Add(mapp);
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FlightSimulatorApp.ViewModels
 
 {
-    class DashBoardViewModel : INotifyPropertyChanged
+    public class DashBoardViewModel : INotifyPropertyChanged
     {
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
@@ -17,7 +17,7 @@ namespace FlightSimulatorApp.ViewModels
         //Ctor
         public DashBoardViewModel(Model.IAircraftModel model)
         {
-            Console.WriteLine("In DASHBOARD CONSTRUCOR ######################################################################################## ");
+            //Console.WriteLine("In DASHBOARD CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)

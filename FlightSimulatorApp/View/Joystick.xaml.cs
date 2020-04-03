@@ -29,10 +29,10 @@ namespace FlightSimulatorApp.View
         //public Joystick() { }
         private double aileron, throttle;
 
-        public Joystick(Model.AircraftModel model)
+        public Joystick(Model.AircraftModel model, ViewModels.JoystickViewModel joystickVM)
         {
             InitializeComponent();
-            joystickVM = new ViewModels.JoystickViewModel(model);
+            this.joystickVM = joystickVM;
             DataContext = joystickVM;
             //Console.WriteLine(joystickVM.VM_Indicated_heading_deg);
         }
@@ -64,7 +64,7 @@ namespace FlightSimulatorApp.View
                     knobPosition.Y = y;
                     double relativeX = knobPosition.X / InnerCircle.Width * 2;   //Rudder 
                     double relativeY = knobPosition.Y / InnerCircle.Width * 2;   //Aileron 
-                    joystickVM.moveAircraft(relativeX, relativeY, throttle, aileron); //Change the first two properties according to the joystock movement
+                    joystickVM.moveAircraft(relativeX, relativeY, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the first two properties according to the joystock movement
 
                 }
 
@@ -82,9 +82,6 @@ namespace FlightSimulatorApp.View
                 shape.ReleaseMouseCapture();
         }
 
-        private void throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
 
-        }
     }
 }

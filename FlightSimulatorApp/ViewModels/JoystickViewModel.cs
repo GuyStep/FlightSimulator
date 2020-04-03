@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace FlightSimulatorApp.ViewModels
 
 {
-    class JoystickViewModel : INotifyPropertyChanged
+    public class JoystickViewModel : INotifyPropertyChanged
     {
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
