@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,13 +21,19 @@ namespace FlightSimulatorApp.View
     public partial class ConnectWindow : Window
     {
         MainWindow win;
+        string ipaddress;
+        string portnum;
         string error = "";
         public string Error { get { return error; } set { error = value; }  }
+        public string IPaddress { get { return ipaddress; } set { ipaddress = value; }  }
+        public string PORTnum { get { return portnum; } set { portnum = value; }  }
 
         public ConnectWindow()
         {
             InitializeComponent();
             DataContext = this;
+            IPaddress = ConfigurationManager.AppSettings["ip"];
+            PORTnum = ConfigurationManager.AppSettings["port"];
 
         }
 
