@@ -28,7 +28,6 @@ namespace FlightSimulatorApp.View
             InitializeComponent();
             this.dashboardVM = dashboardVM;
             DataContext = dashboardVM;
-            //Console.WriteLine("View"+dashboardVM.VM_Indicated_heading_deg);
         }
     }
 

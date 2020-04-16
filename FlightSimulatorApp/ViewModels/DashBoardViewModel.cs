@@ -12,12 +12,10 @@ namespace FlightSimulatorApp.ViewModels
     {
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-        private double rudder, aileron, throttle, elevator;
 
         //Ctor
         public DashBoardViewModel(Model.IAircraftModel model)
         {
-            //Console.WriteLine("In DASHBOARD CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
@@ -33,14 +31,13 @@ namespace FlightSimulatorApp.ViewModels
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-            //Console.WriteLine("In NotifyPropertyChanged DASHBOARDVM @@@@@@@@@@@@@@@@@ " );
 
 
         }
 
 
         //VM properties received from model (simulator)
-        public double VM_Indicated_heading_deg { get {/*Console.WriteLine("DASHBOARDVM FROM MODEL:"+ model.Indicated_heading_deg);*/ return model.Indicated_heading_deg; 
+        public double VM_Indicated_heading_deg { get { return model.Indicated_heading_deg; 
             }
         } 
         public double VM_Gps_indicated_vertical_speed { get { return model.Gps_indicated_vertical_speed; }  }

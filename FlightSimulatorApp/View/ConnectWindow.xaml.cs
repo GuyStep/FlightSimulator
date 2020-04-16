@@ -37,11 +37,11 @@ namespace FlightSimulatorApp.View
 
         }
 
-        public void setWin(MainWindow win)
+        public void SetWin(MainWindow win)
         {
             this.win = win;
         }
-        private void conButton_Click(object sender, RoutedEventArgs e)
+        private void ConButton_Click(object sender, RoutedEventArgs e)
         {
             Label errorLabel = new Label();
             errorLabel.Margin = new System.Windows.Thickness(41, 34, 0, 0);
@@ -54,7 +54,7 @@ namespace FlightSimulatorApp.View
 
             try
             {
-                win.startFlying(ipText.Text, Int32.Parse(portText.Text));
+                win.StartFlying(ipText.Text, Int32.Parse(portText.Text));
                 this.Close();
 
              }

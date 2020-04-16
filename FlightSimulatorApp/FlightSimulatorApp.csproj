@@ -89,7 +89,6 @@
     </Compile>
     <Compile Include="Model\AircraftModel.cs" />
     <Compile Include="Model\IAircraftModel.cs" />
-    <Compile Include="Model\ITelnetClient.cs" />
     <Compile Include="ViewModels\JoystickViewModel.cs" />
     <Compile Include="ViewModels\User.cs" />
     <Compile Include="MainWindow.xaml.cs">

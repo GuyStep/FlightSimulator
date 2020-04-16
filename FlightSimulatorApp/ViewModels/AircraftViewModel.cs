@@ -12,7 +12,6 @@ namespace FlightSimulatorApp.ViewModels
     {
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-        private double rudder, aileron, throttle, elevator;
 
         //Ctor
         public AircraftViewModel(Model.IAircraftModel model)
@@ -21,7 +20,6 @@ namespace FlightSimulatorApp.ViewModels
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
                 {
-                    Console.WriteLine("In DASHBOARD CONSTRUCOR ######################################################################################## ");
 
                     NotifyPropertyChanged("VM_" + e.PropertyName);
                 };
@@ -33,19 +31,17 @@ namespace FlightSimulatorApp.ViewModels
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-            //Console.WriteLine("In NotifyPropertyChanged DASHBOARDVM @@@@@@@@@@@@@@@@@ " );
 
 
         }
 
-        public void moveAircraft(double rudder, double aileron, double throttle, double elevator)
+        public void MoveAircraft(double rudder, double aileron, double throttle, double elevator)
         {
-            model.move(rudder, aileron, throttle, elevator);
+            model.Move(rudder, aileron, throttle, elevator);
         }
 
         //VM properties received from model (simulator)
-        public double VM_Indicated_heading_deg { get {/*Console.WriteLine("DASHBOARDVM FROM MODEL:"+ model.Indicated_heading_deg)*/; return model.Indicated_heading_deg; 
-            }
+        public double VM_Indicated_heading_deg { get {return model.Indicated_heading_deg;}
         } 
         public double VM_Gps_indicated_vertical_speed { get { return model.Gps_indicated_vertical_speed; }  }
         public double VM_Gps_indicated_ground_speed_kt { get { return model.Gps_indicated_ground_speed_kt; } }

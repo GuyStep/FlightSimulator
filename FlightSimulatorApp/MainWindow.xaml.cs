@@ -22,23 +22,11 @@ namespace FlightSimulatorApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        ViewModels.AircraftViewModel vm;
         public Model.AircraftModel model;
         Button mainButton = new Button();
         public MainWindow()
         {
             InitializeComponent();
-   /*         
-            mainButton.Content = "Connect";
-            mainButton.Height = 170;
-            mainButton.Width = 500;
-            MainGrid.Children.Add(mainButton);*/
-
-
-            // < Button Name = "MainButton" Content = "Connect" HorizontalAlignment = "Left" Margin = "131,104,0,0" VerticalAlignment = "Top" Width = "528" Grid.ColumnSpan = "2" Height = "176" />
-
-            //           
-
 
 
         }
@@ -47,23 +35,21 @@ namespace FlightSimulatorApp
 
             View.ConnectWindow win = new View.ConnectWindow();
             win.Show();
-            win.setWin(this);
+            win.SetWin(this);
         }
 
-        public void startFlying(string ip, int port)
+        public void StartFlying(string ip, int port)
         {
             MainGrid.Children.Remove(MainButton); 
             model = new Model.AircraftModel(new TcpClient(), ip, port);
-            //vm = new ViewModels.AircraftViewModel(model);
             ViewModels.DashBoardViewModel VMdashboard = new ViewModels.DashBoardViewModel(model);
             View.DashBoard das = new View.DashBoard(model, VMdashboard);
             dashSpace.Children.Add(das);
             DataContext = VMdashboard;
-            if (!model.stop){
+            if (!model.Stop){
                 ViewModels.JoystickViewModel VMjoystick = new ViewModels.JoystickViewModel(model);
                 ViewModels.MapViewModel VMmap = new ViewModels.MapViewModel(model);
 
-                //View.Joystick joys = new View.Joystick(model);
                 View.Sliders slide = new View.Sliders(model, VMjoystick);
                 View.Map mapp = new View.Map(model, VMmap);
 
@@ -81,19 +67,3 @@ namespace FlightSimulatorApp
     }
 }
 
-
-/*    {
-        #region Singleton
-        private static TcpClient m_Instance = null;
-        public static TcpClient Instance
-        {
-            get
-            {
-                if (m_Instance == null)
-                {
-                    m_Instance = new TcpClient();
-                }
-                return m_Instance;
-            }
-        }
-        #endregion*/

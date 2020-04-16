@@ -22,10 +22,10 @@ namespace FlightSimulatorApp.View
     {
 
         ViewModels.JoystickViewModel joystickVM;
-        private Point MouseDownLocation;
-        bool isPressed = false;
+        //private Point MouseDownLocation;
+        //bool isPressed = false;
         //public Joystick() { }
-        private double aileron, throttle;
+        //private double aileron, throttle;
 
         public Sliders(Model.AircraftModel model, ViewModels.JoystickViewModel joystickVM)
         {
@@ -34,7 +34,6 @@ namespace FlightSimulatorApp.View
             DataContext = joystickVM;
             Joystick joys = new Joystick(model, joystickVM);
             joystickSpace.Children.Add(joys);
-            //Console.WriteLine(joystickVM.VM_Indicated_heading_deg);
         }
 
         private void throttle_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)

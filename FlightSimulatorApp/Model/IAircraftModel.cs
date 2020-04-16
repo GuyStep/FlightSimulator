@@ -12,9 +12,9 @@ namespace FlightSimulatorApp.Model
 {
     public interface IAircraftModel : INotifyPropertyChanged
     {
-        void connect(string ip, int port);
-        void disconnect();
-        void start();
+        void Connect(string ip, int port);
+        void Disconnect();
+        void Start();
 
 
         //Properties that we recieve from the simulator
@@ -28,11 +28,11 @@ namespace FlightSimulatorApp.Model
         double Altimeter_indicated_altitude_ft { set; get; } //altimeter_indicated-altitude-ft
         double Latitude_deg { get; set;  }
         double Longtitude_deg { get; set; }
-        Location myLoc { get; set; }
+        Location MyLoc { get; set; }
         string Error { get; set; }
 
 
         //Control the aircraft by sending control commands
-        void move(double rudder, double elevator , double throttle, double aileron);
+        void Move(double rudder, double elevator , double throttle, double aileron);
     }
 }

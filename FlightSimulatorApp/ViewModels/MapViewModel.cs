@@ -18,7 +18,6 @@ namespace FlightSimulatorApp.ViewModels
         //Ctor
         public MapViewModel(Model.IAircraftModel model)
         {
-            //Console.WriteLine("In MAP CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
@@ -34,7 +33,6 @@ namespace FlightSimulatorApp.ViewModels
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
 
-            //Console.WriteLine("In NotifyPropertyChanged MAP @@@@@@@@@@@@@@@@@ " );
 
 
         }
@@ -44,9 +42,7 @@ namespace FlightSimulatorApp.ViewModels
 
         public double VM_Latitude { get { return model.Latitude_deg; }  }
         public double VM_Longtitude { get {  return model.Longtitude_deg; } }
-        public Location VM_myLoc { get
-            {   Console.WriteLine("View" + VM_Latitude);
-                return model.myLoc ; } }
+        public Location VM_myLoc { get { return model.MyLoc; } }
 
     }
 

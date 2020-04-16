@@ -27,17 +27,16 @@ namespace FlightSimulatorApp.View
         private Point MouseDownLocation;
         bool isPressed = false;
         //public Joystick() { }
-        private double aileron, throttle;
+
 
         public Joystick(Model.AircraftModel model, ViewModels.JoystickViewModel joystickVM)
         {
             InitializeComponent();
             this.joystickVM = joystickVM;
             DataContext = joystickVM;
-            //Console.WriteLine(joystickVM.VM_Indicated_heading_deg);
         }
 
-        private void centerKnob_Completed(object sender, EventArgs e) { }
+        private void CenterKnob_Completed(object sender, EventArgs e) { }
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
         {
 /*            if (e.ChangedButton == MouseButton.Left)
@@ -64,7 +63,7 @@ namespace FlightSimulatorApp.View
                     knobPosition.Y = y;
                     double relativeX = knobPosition.X / InnerCircle.Width * 2;   //Rudder 
                     double relativeY = knobPosition.Y / InnerCircle.Width * 2;   //Aileron 
-                    joystickVM.moveAircraft(relativeX, relativeY, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the first two properties according to the joystock movement
+                    joystickVM.MoveAircraft(relativeX, relativeY, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the first two properties according to the joystock movement
 
                 }
 
@@ -77,7 +76,7 @@ namespace FlightSimulatorApp.View
             isPressed = false;
             knobPosition.X = 0;
             knobPosition.Y = 0;
-            joystickVM.moveAircraft(0, 0, throttle, aileron); //Change the last two properties according to the bars
+            joystickVM.MoveAircraft(0, 0, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the last two properties according to the bars
             if (e.Source is Shape shape)
                 shape.ReleaseMouseCapture();
         }

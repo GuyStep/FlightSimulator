@@ -12,15 +12,14 @@ namespace FlightSimulatorApp.ViewModels
     {
         Model.IAircraftModel model;
         public event PropertyChangedEventHandler PropertyChanged;
-        private double rudder, aileron, throttle, elevator;
-        public double VM_Throttle { get { return throttle; ; } set { throttle = value; model.move(rudder, elevator, throttle, aileron); } }
-        public double VM_Aileron { get { return aileron; } set { aileron = value; model.move(rudder, elevator, throttle, aileron); } }
+        private double rudder = 0, aileron, throttle, elevator = 0;
+        public double VM_Throttle { get { return throttle; ; } set { throttle = value; model.Move(rudder, elevator, throttle, aileron); } }
+        public double VM_Aileron { get { return aileron; } set { aileron = value; model.Move(rudder, elevator, throttle, aileron); } }
 
 
         //Ctor
         public JoystickViewModel(Model.IAircraftModel model)
         {
-            Console.WriteLine("In JOYSTICK CONSTRUCOR ######################################################################################## ");
             this.model = model;
             model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e)
@@ -38,9 +37,9 @@ namespace FlightSimulatorApp.ViewModels
 
         }
 
-        public void moveAircraft(double rudder, double elevator, double throttle, double aileron)
+        public void MoveAircraft(double rudder, double elevator, double throttle, double aileron)
         {
-            model.move(rudder, elevator, this.throttle, this.aileron);
+            model.Move(rudder, elevator, this.throttle, this.aileron);
         }
         /*//VM properties received from view (joystick)
         public double VM_rudder { get { return rudder; } set{ rudder = value; model.move(rudder, aileron, throttle, elevator); } }
