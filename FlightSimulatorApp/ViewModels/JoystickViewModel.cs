@@ -41,12 +41,5 @@ namespace FlightSimulatorApp.ViewModels
         {
             model.Move(rudder, elevator, this.throttle, this.aileron);
         }
-        /*//VM properties received from view (joystick)
-        public double VM_rudder { get { return rudder; } set{ rudder = value; model.move(rudder, aileron, throttle, elevator); } }
-        public double VM_aileron { get { return aileron; } set{ aileron = value; model.move(rudder, aileron, throttle, elevator); } }
-        public double VM_throttle { get { return throttle; } set{ throttle = value; model.move(rudder, aileron, throttle, elevator); } }
-        public double VM_elevator { get { return elevator; } set{ elevator = value; model.move(rudder, aileron, throttle, elevator); } }
-*/
-
     }
 }

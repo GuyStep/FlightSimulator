@@ -18,7 +18,7 @@ namespace FlightSimulatorApp.Model
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        TcpClient telnetClient; //Need to change to TcpClient
+        TcpClient telnetClient;
         private NetworkStream stream;
         private BinaryReader reader;
         public Boolean Stop;
@@ -88,10 +88,11 @@ namespace FlightSimulatorApp.Model
             this.telnetClient.Close();
         }
 
+        //Sends joystick and slider values to the server
         public void Move(double rudder, double elevator, double throttle, double aileron)
         {
 
-            new Thread(delegate ()
+            new Thread(delegate () //Uses own thread in order to avoid ui freezes
             {
                 if (!Stop)
                 {
@@ -112,28 +113,14 @@ namespace FlightSimulatorApp.Model
 
         }
 
-        public void Flush(string command)
+
+        //writes to simulator 
+        public void Write(string command)
         {
 
             try
             {
                 stream = telnetClient.GetStream();
-                stream.Flush();
-
-            }
-            catch
-            {
-                Error = "Couldn't get response from server.";
-            }
-
-
-
-        }
-
-        public void Write(string command)
-        {
-        
-            try { stream = telnetClient.GetStream();
                 stream.Flush();
                 byte[] send = Encoding.ASCII.GetBytes(command.ToString());
                 stream.Write(send, 0, send.Length);
@@ -150,11 +137,13 @@ namespace FlightSimulatorApp.Model
 
         }
 
+        //Reads from simulator 
         public string Read(TcpClient client)
         {
 
-                string input = ""; // input will be stored here
-            try { 
+            string input = ""; // input will be stored here
+            try
+            {
                 reader = new BinaryReader(client.GetStream());
                 char s;
                 while ((s = reader.ReadChar()) != '\n') input += s;
@@ -174,15 +163,17 @@ namespace FlightSimulatorApp.Model
             {
                 if (!Stop)
                     Error = "Couldn't recieve from server.";
-                return "0";               
+                return "0";
             }
 
-            try { Double.Parse(input);
+            try
+            {
+                Double.Parse(input);
                 return input;
             }
             catch
             {
-                if(!Stop)
+                if (!Stop)
                     Error = "Wrong value returned from server";
                 return "0";
             }
@@ -193,19 +184,19 @@ namespace FlightSimulatorApp.Model
         {
             string input;
             double offset = 0.001;
-            new Thread(delegate ()
+            new Thread(delegate () //Runs a thread that gets all dashboard meters from simulators (in a loop)
             {
                 while (!Stop)
-                { /*/instrumentation/heading-indicator/indicated-heading-deg*/
+                { /*/controls/flight/rudder*/
                     Random rnd = new Random();
                     //Thread.Sleep(8000);
                     mut.WaitOne();
-
-                    this.Write("get /controls/flight/rudder\n"); //Need full path
+                    //get /instrumentation/heading-indicator/indicated-heading-deg
+                    this.Write("get /controls/flight/rudder\n");
                     Indicated_heading_deg = Double.Parse(Read(telnetClient));
-
-
-                    this.Write("get /instrumentation/gps/indicated-vertical-speed\n");
+                    //    /instrumentation/gps/indicated-vertical-speed
+                    //    /controls/flight/elevator
+                    this.Write("get /controls/flight/elevator\n");
                     input = Read(telnetClient);
                     Gps_indicated_vertical_speed = Double.Parse(input); ;
 
@@ -244,13 +235,13 @@ namespace FlightSimulatorApp.Model
                     offset = offset + 0.0001;
                     Longtitude_deg = tempLon;
                     Latitude_deg = tempLat;
-
-                    if (tempLon > 180)                   
+                    //Boundries of location (map related constraints)
+                    if (tempLon > 180)
                     {
                         Error = "Longtitude degree above 180";
                         Longtitude_deg = 180;
                     }
-                    if ( tempLon < -180)
+                    if (tempLon < -180)
                     {
                         Error = "Longtitude degree below -180";
                         Longtitude_deg = -180;
@@ -260,7 +251,7 @@ namespace FlightSimulatorApp.Model
                         Error = "Latitude degree above 90";
                         Latitude_deg = 90;
                     }
-                    if ( tempLat < -90)
+                    if (tempLat < -90)
                     {
                         Error = "Latitude degree below -90";
                         Latitude_deg = -90;

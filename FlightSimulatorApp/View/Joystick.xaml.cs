@@ -39,8 +39,7 @@ namespace FlightSimulatorApp.View
         private void CenterKnob_Completed(object sender, EventArgs e) { }
         private void Knob_MouseDown(object sender, MouseButtonEventArgs e)
         {
-/*            if (e.ChangedButton == MouseButton.Left)
-*/            
+
             if(!isPressed){
                 MouseDownLocation = e.GetPosition(this);
                 isPressed = true;
@@ -53,8 +52,7 @@ namespace FlightSimulatorApp.View
 
         private void Knob_MouseMove(object sender, MouseEventArgs e)
         {
-/*            if (e.LeftButton == MouseButtonState.Pressed)
-*/            if(isPressed){
+            if(isPressed){
                 double x = e.GetPosition(this).X - MouseDownLocation.X;
                 double y = e.GetPosition(this).Y - MouseDownLocation.Y;
                 if (Math.Sqrt(x * x + y * y) <= InnerCircle.Width / 2)
@@ -62,7 +60,7 @@ namespace FlightSimulatorApp.View
                     knobPosition.X = x;
                     knobPosition.Y = y;
                     double relativeX = knobPosition.X / InnerCircle.Width * 2;   //Rudder 
-                    double relativeY = knobPosition.Y / InnerCircle.Width * 2;   //Aileron 
+                    double relativeY = knobPosition.Y / InnerCircle.Width * (-2);   //Aileron 
                     joystickVM.MoveAircraft(relativeX, relativeY, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the first two properties according to the joystock movement
 
                 }
@@ -76,7 +74,7 @@ namespace FlightSimulatorApp.View
             isPressed = false;
             knobPosition.X = 0;
             knobPosition.Y = 0;
-            joystickVM.MoveAircraft(0, 0, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the last two properties according to the bars
+            joystickVM.MoveAircraft(0, 0, joystickVM.VM_Throttle, joystickVM.VM_Aileron); //Change the last two properties according to the sliders
             if (e.Source is Shape shape)
                 shape.ReleaseMouseCapture();
         }

@@ -30,12 +30,6 @@ namespace FlightSimulatorApp.View
             InitializeComponent();
             this.mapVM = mapVM;
             DataContext = mapVM;
-            //Location loc = new Location(mapVM.VM_Latitude, mapVM.VM_Longtitude);
-
-           
-
-
-
         }
 
     }

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -30,9 +30,6 @@ namespace FlightSimulatorApp.ViewModels
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-
-
-
         }
 
         public void MoveAircraft(double rudder, double aileron, double throttle, double elevator)
@@ -58,3 +55,4 @@ namespace FlightSimulatorApp.ViewModels
 
 
 }
+*/

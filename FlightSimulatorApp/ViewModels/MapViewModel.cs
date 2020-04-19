@@ -39,7 +39,6 @@ namespace FlightSimulatorApp.ViewModels
 
 
         //VM aircraft location positions received from model (simulator)
-
         public double VM_Latitude { get { return model.Latitude_deg; }  }
         public double VM_Longtitude { get {  return model.Longtitude_deg; } }
         public Location VM_myLoc { get { return model.MyLoc; } }

@@ -28,6 +28,7 @@ namespace FlightSimulatorApp.View
         public string IPaddress { get { return ipaddress; } set { ipaddress = value; }  }
         public string PORTnum { get { return portnum; } set { portnum = value; }  }
 
+
         public ConnectWindow()
         {
             InitializeComponent();
@@ -36,6 +37,7 @@ namespace FlightSimulatorApp.View
             PORTnum = ConfigurationManager.AppSettings["port"];
 
         }
+
 
         public void SetWin(MainWindow win)
         {
@@ -47,8 +49,6 @@ namespace FlightSimulatorApp.View
             errorLabel.Margin = new System.Windows.Thickness(41, 34, 0, 0);
             errorLabel.Height = 26;
             griddd.Children.Add(errorLabel);
-
-           // errorLabel.
 
 
 

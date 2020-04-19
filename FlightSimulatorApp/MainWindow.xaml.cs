@@ -52,12 +52,9 @@ namespace FlightSimulatorApp
 
                 View.Sliders slide = new View.Sliders(model, VMjoystick);
                 View.Map mapp = new View.Map(model, VMmap);
-
                 joySpace.Children.Add(slide);
                 mapSpace.Children.Add(mapp);
             }
-
-
         }
 
         private void Joystick_Loaded(object sender, RoutedEventArgs e)
