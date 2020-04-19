@@ -191,14 +191,14 @@ namespace FlightSimulatorApp.Model
                     Random rnd = new Random();
                     //Thread.Sleep(8000);
                     mut.WaitOne();
-                    //get /instrumentation/heading-indicator/indicated-heading-deg
-                    this.Write("get /controls/flight/rudder\n");
+
+                    this.Write("get /instrumentation/heading-indicator/indicated-heading-deg\n");
                     Indicated_heading_deg = Double.Parse(Read(telnetClient));
-                    //    /instrumentation/gps/indicated-vertical-speed
-                    //    /controls/flight/elevator
-                    this.Write("get /controls/flight/elevator\n");
+
+
+                    this.Write("get /instrumentation/gps/indicated-vertical-speed\n");
                     input = Read(telnetClient);
-                    Gps_indicated_vertical_speed = Double.Parse(input); ;
+                    Gps_indicated_vertical_speed = Double.Parse(input);
 
                     this.Write("get /instrumentation/gps/indicated-ground-speed-kt\n");
                     input = Read(telnetClient);
